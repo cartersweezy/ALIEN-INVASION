@@ -142,7 +142,7 @@ class AlienInvasion:
             for aliens in collisions.values():
                 self.stats.score += self.settings.alien_points * len(aliens)
             self.sb.prep_score()
-            self.check_high_score()
+            self.sb.check_high_score()
         
         if not self.aliens:
             # Уничтожение существующих снарядов и создание нового флота
