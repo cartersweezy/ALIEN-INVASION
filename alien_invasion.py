@@ -81,6 +81,8 @@ class AlienInvasion:
             self.stats.reset_stats()
             self.stats.game_active = True
             self.sb.prep_score()
+            self.sb.prep_level()
+            self.sb.prep_ships()
             
             # Указатель мыши скрывается 
             pygame.mouse.set_visible(False)
@@ -149,6 +151,10 @@ class AlienInvasion:
             self.bullets.empty()
             self._create_fleet()
             self.settings.increase_speed()
+            
+            # Увеличение уровня
+            self.stats.level += 1
+            self.sb.prep_level()
     
     def _update_aliens(self):
         '''Обновляет позиции всех пришельцев во флоте'''
@@ -165,8 +171,9 @@ class AlienInvasion:
     def _ship_hit(self):
         '''Обрабатывает столкновение корабля с пришельцем'''
         if self.stats.ships_left > 0:
-            # Уменьшение ships_left
+            # Уменьшение ships_left и обновление панели счета
             self.stats.ships_left -= 1
+            self.sb.prep_ships()
         
             # Очистка списков пришельцев и снарядов
             self.aliens.empty()
